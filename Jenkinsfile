@@ -3,19 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Clean Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
-
-        stage('Clone Repository') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/Nehaa1408/Jenkins.git'
-            }
-        }
-
         stage('Build Movie Service') {
             steps {
                 dir('movieservice/movie-service') {
