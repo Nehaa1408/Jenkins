@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Build Eureka Server') {
+            steps {
+                dir('eurekaserver/eureka-server') {
+                    sh 'chmod +x mvnw'
+                    sh './mvnw clean package -DskipTests'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                dir('eurekaserver/eureka-server') {
+                    sh 'docker build -t eureka-server:${BUILD_NUMBER} .'
+                }
+            }
+        }
+    }
+}
