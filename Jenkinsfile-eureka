@@ -17,6 +17,7 @@ pipeline {
                 dir('eurekaserver/eureka-server') {
                     sh 'docker build -t eureka-server:${BUILD_NUMBER} .'
                 }
+                echo "Success"
             }
         }
     }
