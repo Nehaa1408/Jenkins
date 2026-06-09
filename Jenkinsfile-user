@@ -18,6 +18,7 @@ pipeline {
                     sh 'docker build -t user-service:${BUILD_NUMBER} .'
                 }
             }
+            echo "User Service Jenkins Done" 
         }
     }
 }
