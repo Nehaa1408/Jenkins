@@ -1,0 +1,58 @@
+services:
+  eureka-server:
+    image: eureka-server:latest
+    container_name: eureka-server-container
+    ports:
+      - "8761:8761"
+
+  admin-server:
+    image: admin-server:latest
+    container_name: admin-server-container
+    ports:
+      - "9090:9090"
+    depends_on:
+      - eureka-server
+
+  api-gateway:
+    image: api-gateway:latest
+    container_name: api-gateway-container
+    ports:
+      - "9999:9999"
+    depends_on:
+      - eureka-server
+
+  user-service:
+    image: user-service:latest
+    container_name: user-service-container
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka-server
+
+  movie-service:
+    image: movie-service:latest
+    container_name: movie-service-container
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka-server
+
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka
+    ports:
+      - "19092:19092"
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+      - "8085:8080"
+    depends_on:
+      - kafka
