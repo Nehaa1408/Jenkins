@@ -1,18 +1,21 @@
 pipeline {
     agent any
-    stages{
-        stage('Build Admin Server'){
-            steps{
-                dir('adminserver/admin-server'){
+
+    stages {
+
+        stage('Build Admin Server') {
+            steps {
+                dir('adminserver/admin-server') {
                     sh 'chmod +x mvnw'
                     sh './mvnw clean package -DskipTests'
                 }
             }
         }
-        stage('Build Docker Image'){
-            steps{
-                dir('adminserver/admin-server'){
-                    sh 'docker build -t admin-server'
+
+        stage('Build Docker Image') {
+            steps {
+                dir('adminserver/admin-server') {
+                    sh 'docker build -t admin-server:${BUILD_NUMBER} .'
                 }
             }
         }
